@@ -1,14 +1,25 @@
+import java.util.Arrays;
 
 public class Game {
-	public String player;
-	public String ai;
+	public static String symbol = " %s ";
+	private String player;
+	private String ai;
+	public static String[] options = {"X","O"};
 	protected String[] gameSlot;
 	protected Boolean[] gameSlotAvailability;
-	protected String[] options = {" X "," O "};
+	
 	
 	public void main() {
 		this.start();
 		this.play();
+	}
+	
+	public void setPlayerSymbol(String input) {
+		this.player = Game.symbol.replace("%s", input);
+	}
+			
+	public void setAiSymbol(String input) {
+		this.ai = Game.symbol.replace("%s", input);
 	}
 	
 	public void resetState() {
@@ -29,6 +40,8 @@ public class Game {
 		this.aiMove();
 		
 		if(this.hasEnded()) {
+			Ui.displayEndOfGameMessage();
+			Ui.drawBoard(gameSlot);
 			this.end();
 		} else {
 			this.play();
@@ -37,7 +50,7 @@ public class Game {
 	
 	public void playerMove() {
 		int selection = Ui.promptForSlot();
-		if(this.gameSlotAvailability[selection]) {
+		if(Game.isSlotAvailable(this.gameSlotAvailability,selection)) {
 			this.selectSlot(selection, this.player);
         } else {
         	this.playerMove();
@@ -45,8 +58,11 @@ public class Game {
 	}
 	
 	public void aiMove() {
-		int selection = Ai.move(gameSlot, gameSlotAvailability);
-		this.selectSlot(selection, this.ai);
+		Ai.move(gameSlot, gameSlotAvailability);
+	}
+	
+	public static boolean isSlotAvailable(Boolean[] gameSlotAvailability,int selection) {
+		return gameSlotAvailability[selection];
 	}
 	
 	public void selectSlot(int selection, String player) {
@@ -57,28 +73,37 @@ public class Game {
 	}
 	
 	public void setSymbolSelection(String input) {
+		
 		if(input instanceof String) {
-    		if(input.toUpperCase().contains(this.options[0])) {
-    			this.player = this.options[0];
-    			this.ai = this.options[1];
+    		if(input.toUpperCase().contains(Game.options[0])) {
+    			this.setPlayerSymbol(Game.options[0]);
+    			this.setAiSymbol(Game.options[1]);
     		} else {
-    			this.player = this.options[1];
-    			this.ai = this.options[0];
+    			this.player = symbol.replace("%s", Game.options[1]);
+    			this.ai = symbol.replace("%s", Game.options[0]);
     		}
     	} else {
     		this.setSymbolSelection(Ui.promptForOption());
     	}
 	}
 	
-	public boolean hasEnded() {
+	public boolean hasWinner() {
 		// TODO check if has winner
-		// TODO check if has slots left
 		return false;
-//		Ui.displayEndOfGameMessage();
+	}
+	
+	public boolean hasAvailableSlots() {
+		if(Arrays.asList(this.gameSlotAvailability).contains(true)) {
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean hasEnded() {
+		return this.hasWinner() || !this.hasAvailableSlots();
 	}
 	
 	public void end() {
-		// TODO check if player wants to go again
 		String input = Ui.promptForNewGame();
 		if(input.toUpperCase().contains("S")) {
 			this.start();
