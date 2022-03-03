@@ -1,0 +1,11 @@
+#BlueJ class context
+comment0.target=Privada
+comment1.params=n\ qA\ qP\ vM
+comment1.target=Privada(java.lang.String,\ int,\ int,\ double)
+comment2.params=
+comment2.target=double\ getValorMensalidade()
+comment3.params=vM
+comment3.target=void\ setValorMensalidade(double)
+comment4.params=
+comment4.target=void\ imprimeInfo()
+numComments=5

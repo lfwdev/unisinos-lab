@@ -1,0 +1,11 @@
+#BlueJ class context
+comment0.target=ChocolateAmargo
+comment1.params=marca\ peso\ calorias\ teorCacau
+comment1.target=ChocolateAmargo(java.lang.String,\ int,\ int,\ int)
+comment2.params=
+comment2.target=int\ getTeorCacau()
+comment3.params=novoTeorCacau
+comment3.target=void\ setTeorCacau(int)
+comment4.params=
+comment4.target=void\ exibeDados()
+numComments=5

@@ -1,0 +1,19 @@
+#BlueJ class context
+comment0.target=Chocolate
+comment1.params=marca\ peso\ calorias
+comment1.target=Chocolate(java.lang.String,\ int,\ int)
+comment2.params=
+comment2.target=java.lang.String\ getMarca()
+comment3.params=novaMarca
+comment3.target=void\ setMarca(java.lang.String)
+comment4.params=
+comment4.target=int\ getPeso()
+comment5.params=novoPeso
+comment5.target=void\ setPeso(int)
+comment6.params=
+comment6.target=int\ getCalorias()
+comment7.params=novaCalorias
+comment7.target=void\ setCalorias(int)
+comment8.params=
+comment8.target=void\ exibeDados()
+numComments=9

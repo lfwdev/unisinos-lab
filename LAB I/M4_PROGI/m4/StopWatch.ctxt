@@ -1,0 +1,7 @@
+#BlueJ class context
+comment0.target=StopWatch
+comment1.params=
+comment1.target=StopWatch()
+comment2.params=n
+comment2.target=void\ stopwatch(double)
+numComments=3

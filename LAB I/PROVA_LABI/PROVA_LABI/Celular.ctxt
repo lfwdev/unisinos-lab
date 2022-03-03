@@ -1,0 +1,12 @@
+#BlueJ class context
+comment0.target=Celular
+comment0.text=\r\n\ Crie\ uma\ classe\ chamada\ Celular,\ \r\n\ que\ \u00E9\ uma\ subclasse\ de\ DispositivoMovel.\ \r\n\ Esta\ subclasse\ deve\ possuir\ um\ atributo\ \r\n\ referente\ ao\ n\u00FAmero\ deste\ celular\ (armazene\ como\ String).\ \r\n\ Crie\ o\ construtor,\ os\ m\u00E9todos\ de\ acesso\ necess\u00E1rios\ e\ \r\n\ sobrescreva\ o\ m\u00E9todo\ exibeDados,\ para\ exibir\ as\ \r\n\ informa\u00E7\u00F5es\ da\ classe.\r\n
+comment1.params=marca\ modelo\ numero
+comment1.target=Celular(java.lang.String,\ java.lang.String,\ java.lang.String)
+comment2.params=numero
+comment2.target=void\ setNumero(java.lang.String)
+comment3.params=
+comment3.target=java.lang.String\ getNumero()
+comment4.params=
+comment4.target=void\ exibeDados()
+numComments=5

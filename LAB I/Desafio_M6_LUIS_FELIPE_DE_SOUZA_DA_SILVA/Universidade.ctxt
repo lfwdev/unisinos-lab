@@ -1,0 +1,19 @@
+#BlueJ class context
+comment0.target=Universidade
+comment1.params=n\ qA\ qP
+comment1.target=Universidade(java.lang.String,\ int,\ int)
+comment2.params=
+comment2.target=java.lang.String\ getNome()
+comment3.params=n
+comment3.target=void\ setNome(java.lang.String)
+comment4.params=
+comment4.target=int\ getQuantAlunos()
+comment5.params=qA
+comment5.target=void\ setQuantAlunos(int)
+comment6.params=
+comment6.target=int\ getQuantProfessores()
+comment7.params=qP
+comment7.target=void\ setQuantProfessores(int)
+comment8.params=
+comment8.target=void\ imprimeInfo()
+numComments=9

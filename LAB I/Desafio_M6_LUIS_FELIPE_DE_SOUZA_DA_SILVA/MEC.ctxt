@@ -1,0 +1,25 @@
+#BlueJ class context
+comment0.target=MEC
+comment0.text=\r\n\ @author\ Lu\u00EDs\ Felipe\ de\ Souza\r\n\ @version\ 2021-06-14\r\n
+comment1.params=uni\ tipo
+comment1.target=MEC(java.lang.Object,\ int)
+comment1.text=\r\n\ MAIN\r\n
+comment2.params=
+comment2.target=int\ getTipo()
+comment2.text=\r\n\ Setters\ and\ getters\r\n
+comment3.params=tipo
+comment3.target=void\ setTipo(int)
+comment4.params=
+comment4.target=java.lang.Object\ getUni()
+comment5.params=uni
+comment5.target=void\ setUni(java.lang.Object)
+comment6.params=obj
+comment6.target=void\ imprimeUniversidades(java.lang.Object[])
+comment6.text=\r\n\ imprimeUniversidades(obj)\r\n\ Recebe\ um\ objeto\ e\ imprime\ as\ informa\u00E7\u00F5es\ de\ \r\n\ todas\ as\ Universidades,\ indicando\ na\ impress\u00E3o\ o\ tipo\ da\ \r\n\ Universidade\ (Publica\ ou\ Privada).\r\n
+comment7.params=obj
+comment7.target=void\ maisCara(java.lang.Object[])
+comment7.text=\r\n\ maisCara\r\n\ recebe\ um\ objeto\ e\ imprime\ as\ informa\u00E7\u00F5es\ \r\n\ da\ Universidade\ Privada\ mais\ cara\ do\ array\r\n
+comment8.params=obj
+comment8.target=void\ universidadesDoSul(java.lang.Object[])
+comment8.text=\r\n\ universidadesDoSul\r\n\ recebe\ um\ array\ de\ Universidade\ e\ imprime\ as\ informa\u00E7\u00F5es\ das\ \r\n\ Universidades\ P\u00FAblicas\ do\ Sul\ do\ Brasil\ (ou\ seja,\ RS,\ SC\ e\ PR)\r\n
+numComments=9

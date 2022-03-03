@@ -1,0 +1,15 @@
+#BlueJ class context
+comment0.target=TesteFun4Study
+comment1.params=
+comment1.target=TesteFun4Study()
+comment1.text=\r\n\ Construtor\r\n
+comment2.params=
+comment2.target=void\ populate()
+comment2.text=\r\n\ Cria\ duas\ cidades\ e\ quatro\ estudantes\ sem\ requerer\ \r\n\ entrada\ do\ usu\u00E1rio\ para\ a\ finalidade\ de\ testes\ \ \ \r\n
+comment3.params=
+comment3.target=Cidade\ novaCidade()
+comment3.text=\r\n\ Cria\ uma\ cidade\ de\ acordo\ com\ a\ entrada\ do\ usu\u00E1rio\ \ \r\n
+comment4.params=cidade
+comment4.target=Estudante\ novoEstudante(Cidade)
+comment4.text=\r\n\ Cria\ um\ estudante\ de\ acordo\ com\ a\ entrada\ do\ usu\u00E1rio\ \ \r\n
+numComments=5

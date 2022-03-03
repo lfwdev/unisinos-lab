@@ -1,0 +1,11 @@
+#BlueJ class context
+comment0.target=P11
+comment1.params=
+comment1.target=P11()
+comment2.params=a\ b
+comment2.target=void\ geraMultiplosDeTres(int,\ int)
+comment3.params=a\ b
+comment3.target=void\ geraMultiplosDeTres1(int,\ int)
+comment4.params=a\ b
+comment4.target=void\ geraMultiplosDeTres2(int,\ int)
+numComments=5

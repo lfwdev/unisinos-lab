@@ -1,0 +1,19 @@
+#BlueJ class context
+comment0.target=prova
+comment1.params=
+comment1.target=prova()
+comment2.params=x
+comment2.target=int\ q1(int)
+comment2.text=\r\n\ \ \ \ \ \ Quest\u00E3o\ 1\r\n\ \ \ \ \ \ \ \ Crie\ um\ m\u00E9todo\ que\ recebe\ um\ inteiro\ X\ por\ par\u00E2metro\ \r\n\ \ \ \ \ \ \ \ e\ retorne\ a\ soma\ dos\ valores\ de\ 0\ at\u00E9\ X\ (inclusive).\r\n
+comment3.params=
+comment3.target=void\ q2()
+comment3.text=\r\n\ \ \ \ \ \ Quest\u00E3o\ 2\r\n\ \ \ \ \ \ \ \ Crie\ um\ m\u00E9todo\ que\ n\u00E3o\ recebe\ par\u00E2metros.\ \r\n\ \ \ \ \ \ \ \ O\ m\u00E9todo\ deve\ imprimir\ a\ soma\ dos\ valores\ pares\ e\ a\ soma\ dos\ valores\ \u00EDmpares\ \r\n\ \ \ \ \ \ \ \ entre\ dois\ n\u00FAmeros\ quaisquer\ digitados\ pelo\ usu\u00E1rio.\ \r\n\ \ \ \ \ \ \ \ Seu\ m\u00E9todo\ deve\ garantir\ que\ os\ valores\ digitados\ ser\u00E3o\ maiores\ do\ que\ 0.\ \r\n\ \ \ \ \ \ \ \ Al\u00E9m\ disso,\ voc\u00EA\ tamb\u00E9m\ deve\ garantir\ que\ o\ primeiro\ valor\ digitado\ \u00E9\ menor\ que\ o\ segundo.\ \r\n\ \ \ \ \ \ \ \ Ou\ seja\:\ voc\u00EA\ deve\ solicitar\ os\ valores\ novamente\ sempre\ que\ um\ dos\ valores\ digitados\ \r\n\ \ \ \ \ \ \ \ for\ negativo\ ou\ zero,\ e\ tamb\u00E9m\ quando\ o\ primeiro\ valor\ digitado\ for\ maior\ ou\ igual\ ao\ \r\n\ \ \ \ \ \ \ \ segundo\ valor\ digitado.\r\n
+comment4.params=x\ y\ z
+comment4.target=int\ q3(int,\ int,\ int)
+comment4.text=\r\n\r\n\ \ \ \ \ \ Quest\u00E3o\ 3\r\n\ \ \ \ \ \ \ \ Crie\ um\ m\u00E9todo\ que\ recebe\ tr\u00EAs\ valores\ inteiros\ por\ par\u00E2metro\ e\ retorna\ o\ menor\ deles.\r\n
+comment5.params=x\ y\ z
+comment5.target=int\ q3B(int,\ int,\ int)
+comment6.params=a\ b
+comment6.target=boolean\ q4(int[],\ int[])
+comment6.text=\r\n\ \ \ \ \ \ Quest\u00E3o\ 4\r\n\ \ \ \ \ \ \ \ Fa\u00E7a\ um\ m\u00E9todo\ que\ recebe\ dois\ arrays\ de\ inteiros\ por\ par\u00E2metro\ e\ retorna\ verdadeiro\ \r\n\ \ \ \ \ \ \ \ caso\ eles\ sejam\ iguais\ (ou\ seja,\ mesma\ quantidade\ de\ elementos\ e\ todos\ eles\ no\ mesmo\ \u00EDndice)\ \r\n\ \ \ \ \ \ \ \ e\ falso\ caso\ sejam\ diferentes.\ \ \ \ \r\n
+numComments=7

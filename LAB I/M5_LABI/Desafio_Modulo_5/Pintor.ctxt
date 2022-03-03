@@ -1,0 +1,18 @@
+#BlueJ class context
+comment0.target=Pintor
+comment0.text=\r\n\ @author\ Lu\u00EDs\ Felipe\ de\ Souza\ da\ Silva\r\n\ @version\ 2021-05-26\r\n
+comment1.params=nome\ dataNasc\ nacionalidade\ estilo
+comment1.target=Pintor(java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String)
+comment1.text=\r\n\ Constructor\r\n
+comment2.params=estilo
+comment2.target=void\ setEstilo(java.lang.String)
+comment2.text=\r\n\ Estilo\ setters\ and\ getters\r\n
+comment3.params=
+comment3.target=java.lang.String\ getEstilo()
+comment4.params=
+comment4.target=void\ exibeDados()
+comment4.text=\r\n\ exibeDados\ -\ m\u00E9todo\ que\ exibe\ os\ dados\ do\ pintor\ no\ console\r\n
+comment5.params=exibeDados
+comment5.target=void\ cadastro(boolean)
+comment5.text=\r\n\ Cadastro\ -\ Recebe\ boolean\ para\ definir\ se\ exibe\ dados\ ap\u00F3s\ cadastrar\ ou\ n\u00E3o\r\n
+numComments=6

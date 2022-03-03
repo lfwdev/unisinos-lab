@@ -1,0 +1,9 @@
+#BlueJ class context
+comment0.target=P09
+comment1.params=
+comment1.target=P09()
+comment2.params=n
+comment2.target=double\ geraExibeNumerosSomaImparesC(int)
+comment3.params=n
+comment3.target=int\ geraExibeNumerosSomaImparesD(int)
+numComments=4

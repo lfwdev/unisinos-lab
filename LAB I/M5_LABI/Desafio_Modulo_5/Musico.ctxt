@@ -1,0 +1,23 @@
+#BlueJ class context
+comment0.target=Musico
+comment0.text=\r\n\ @author\ Lu\u00EDs\ Felipe\ de\ Souza\ da\ Silva\r\n\ @version\ 2021-05-26\r\n
+comment1.params=nome\ dataNasc\ nacionalidade\ genero\ instrumento
+comment1.target=Musico(java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String)
+comment1.text=\r\n\ Constructor\r\n
+comment2.params=genero
+comment2.target=void\ setGenero(java.lang.String)
+comment2.text=\r\n\ Estilo\ setters\ and\ getters\r\n
+comment3.params=
+comment3.target=java.lang.String\ getGenero()
+comment4.params=instrumento
+comment4.target=void\ setInstrumento(java.lang.String)
+comment4.text=\r\n\ Instrumento\ setters\ and\ getters\r\n
+comment5.params=
+comment5.target=java.lang.String\ getInstrumento()
+comment6.params=
+comment6.target=void\ exibeDados()
+comment6.text=\r\n\ exibeDados\ -\ m\u00E9todo\ que\ exibe\ os\ dados\ do\ musico\ no\ console\r\n
+comment7.params=exibeDados
+comment7.target=void\ cadastro(boolean)
+comment7.text=\r\n\ Cadastro\ -\ Recebe\ boolean\ para\ definir\ se\ exibe\ dados\ ap\u00F3s\ cadastrar\ ou\ n\u00E3o\r\n
+numComments=8

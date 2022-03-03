@@ -1,0 +1,15 @@
+#BlueJ class context
+comment0.target=DispositivoMovel
+comment1.params=marca\ modelo
+comment1.target=DispositivoMovel(java.lang.String,\ java.lang.String)
+comment2.params=marca
+comment2.target=void\ setMarca(java.lang.String)
+comment3.params=modelo
+comment3.target=void\ setModelo(java.lang.String)
+comment4.params=
+comment4.target=java.lang.String\ getMarca()
+comment5.params=
+comment5.target=java.lang.String\ getModelo()
+comment6.params=
+comment6.target=void\ exibeDados()
+numComments=7

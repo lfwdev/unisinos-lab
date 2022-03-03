@@ -1,0 +1,15 @@
+#BlueJ class context
+comment0.target=Testes
+comment0.text=\r\n\ @author\ Lu\u00EDs\ Felipe\ de\ Souza\ da\ Silva\r\n\ @version\ 2021-05-26\r\n
+comment1.params=
+comment1.target=Testes()
+comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ Testes\r\n
+comment2.params=
+comment2.target=void\ novoArtista()
+comment2.text=\r\n\ \r\n
+comment3.params=
+comment3.target=void\ cc()
+comment4.params=
+comment4.target=int\ cadastroOptPrompt()
+comment4.text=\r\n\ Monta\ String\ de\ op\u00E7\u00F5es\ de\ mudan\u00E7a\ de\ atributo\ dos\ estudantes\ e\ solicita\ via\ Teclado\ qual\ op\u00E7\u00E3o\ a\ ser\ alterada\r\n
+numComments=5
