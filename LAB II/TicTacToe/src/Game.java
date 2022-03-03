@@ -1,4 +1,6 @@
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class Game {
 	public static String symbol = " %s ";
@@ -7,6 +9,9 @@ public class Game {
 	public static String[] options = {"X","O"};
 	protected String[] gameSlot;
 	protected Boolean[] gameSlotAvailability;
+	public Rules rules = new Rules();
+	public static ArrayList<Integer> playerHistory;
+	public static ArrayList<Integer> aiHistory;
 	
 	
 	public void main() {
@@ -24,6 +29,8 @@ public class Game {
 	
 	public void resetState() {
 		this.player = "";
+		Game.playerHistory = new ArrayList<Integer> ();
+		Game.aiHistory = new ArrayList<Integer> ();
 		this.gameSlot = new String[] {" R ", " 1 "," 2 "," 3 "," 4 "," 5 "," 6 "," 7 "," 8 "," 9 "};
 		this.gameSlotAvailability = new Boolean[] {false,true,true,true,true,true,true,true,true,true};
 	}
@@ -37,13 +44,14 @@ public class Game {
 		
 		Ui.drawBoard(gameSlot);
 		this.playerMove();
-		this.aiMove();
+		
 		
 		if(this.hasEnded()) {
 			Ui.displayEndOfGameMessage();
 			Ui.drawBoard(gameSlot);
 			this.end();
 		} else {
+			this.aiMove();
 			this.play();
 		}
 	}
@@ -52,13 +60,16 @@ public class Game {
 		int selection = Ui.promptForSlot();
 		if(Game.isSlotAvailable(this.gameSlotAvailability,selection)) {
 			this.selectSlot(selection, this.player);
+			Game.playerHistory.add(selection);
         } else {
         	this.playerMove();
         }
 	}
 	
 	public void aiMove() {
-		Ai.move(gameSlot, gameSlotAvailability);
+		int selection = Ai.move(gameSlot, gameSlotAvailability);
+		this.selectSlot(selection, this.ai);
+		Game.aiHistory.add(selection);
 	}
 	
 	public static boolean isSlotAvailable(Boolean[] gameSlotAvailability,int selection) {
@@ -79,8 +90,8 @@ public class Game {
     			this.setPlayerSymbol(Game.options[0]);
     			this.setAiSymbol(Game.options[1]);
     		} else {
-    			this.player = symbol.replace("%s", Game.options[1]);
-    			this.ai = symbol.replace("%s", Game.options[0]);
+    			this.setPlayerSymbol(Game.options[1]);
+    			this.setAiSymbol(Game.options[0]);
     		}
     	} else {
     		this.setSymbolSelection(Ui.promptForOption());
@@ -88,7 +99,14 @@ public class Game {
 	}
 	
 	public boolean hasWinner() {
-		// TODO check if has winner
+		for(List l : rules.winningCombinations) {
+			if(Game.playerHistory.containsAll(l)) {
+				return true;
+			}
+			else if(Game.aiHistory.containsAll(l)) {
+				return true;
+			}
+		}
 		return false;
 	}
 	
