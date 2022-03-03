@@ -13,7 +13,6 @@ public class Game {
 	public static ArrayList<Integer> playerHistory;
 	public static ArrayList<Integer> aiHistory;
 	
-	
 	public void main() {
 		this.start();
 		this.play();
