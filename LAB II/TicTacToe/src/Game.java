@@ -6,12 +6,13 @@ public class Game {
 	public static String symbol = " %s ";
 	private String player;
 	private String ai;
+	public String winner;
 	public static String[] options = {"X","O"};
 	protected String[] gameSlot;
 	protected Boolean[] gameSlotAvailability;
 	public Rules rules = new Rules();
-	public static ArrayList<Integer> playerHistory;
-	public static ArrayList<Integer> aiHistory;
+	public static ArrayList<Integer> playerHistory = new ArrayList<Integer> ();
+	public static ArrayList<Integer> aiHistory = new ArrayList<Integer> ();
 	
 	public void main() {
 		this.start();
@@ -26,10 +27,12 @@ public class Game {
 		this.ai = Game.symbol.replace("%s", input);
 	}
 	
+	public void setWinner(String input) {
+		this.winner = input;
+	}
+	
 	public void resetState() {
 		this.player = "";
-		Game.playerHistory = new ArrayList<Integer> ();
-		Game.aiHistory = new ArrayList<Integer> ();
 		this.gameSlot = new String[] {" R ", " 1 "," 2 "," 3 "," 4 "," 5 "," 6 "," 7 "," 8 "," 9 "};
 		this.gameSlotAvailability = new Boolean[] {false,true,true,true,true,true,true,true,true,true};
 	}
@@ -44,12 +47,16 @@ public class Game {
 		Ui.drawBoard(gameSlot);
 		this.playerMove();
 		
-		
 		if(this.hasEnded()) {
-			Ui.displayEndOfGameMessage();
 			Ui.drawBoard(gameSlot);
+			if(this.hasWinner()) {
+				Ui.displayWinnerMessage(this.winner, this.player);
+			} else {				
+				Ui.displayEndOfGameMessage();
+			}
 			this.end();
-		} else {
+		} 
+		else {
 			this.aiMove();
 			this.play();
 		}
@@ -100,9 +107,11 @@ public class Game {
 	public boolean hasWinner() {
 		for(List l : rules.winningCombinations) {
 			if(Game.playerHistory.containsAll(l)) {
+				this.setWinner(this.player);
 				return true;
 			}
 			else if(Game.aiHistory.containsAll(l)) {
+				this.setWinner(this.ai);
 				return true;
 			}
 		}

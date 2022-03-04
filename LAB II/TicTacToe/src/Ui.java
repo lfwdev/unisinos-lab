@@ -8,7 +8,9 @@ public class Ui {
 	public static String promptForSlotSelection =  "\n Digite um número de 1 a 9 para selecionar um slot disponível... \n";
 	public static String promptForOption = "Digite X, ou O para iniciar... \n";
 	public static String promptForNewGame = "Gostaria de Iniciar uma nova partida? Digite S para sim e N para não... \n";
-	public static String gameEnded = "O jogo acabou. \n";
+	public static String gameEnded = "O jogo acabou. Ninguém venceu. \n";
+	public static String winnerMessage = "O jogo acabou. %s venceu. \n";
+	public static String congratulations = "O jogo acabou. Parabéns, você venceu. \n";
 	
 	private static InputStreamReader inputStream = new InputStreamReader (System.in);
 	private static BufferedReader buffer = new BufferedReader(inputStream);
@@ -41,6 +43,14 @@ public class Ui {
 	public static String promptForNewGame() {
         System.out.print(Ui.promptForNewGame);
         return Ui.getStringInput();
+	}
+	
+	public static void displayWinnerMessage(String winner, String player) {
+		if(winner.contains(player)) {
+			System.out.print(Ui.congratulations);
+		} else {	
+			System.out.printf(Ui.winnerMessage,winner);
+		}			
 	}
 	
 	public static void displayEndOfGameMessage() {
