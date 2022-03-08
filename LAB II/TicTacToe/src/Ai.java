@@ -10,11 +10,11 @@ public class Ai {
 		
 		int selection = Ai.getRandomIntInRange();
 		
-		System.out.println("Ai is deciding...");
-		System.out.println(Game.playerHistory);
-		System.out.println(Game.aiHistory);
-		System.out.println(selection);
-		System.out.println(Game.isSlotAvailable(gameSlotAvailability,selection));
+//		System.out.println("Ai is deciding...");
+//		System.out.println(Game.playerHistory);
+//		System.out.println(Game.aiHistory);
+//		System.out.println(selection);
+//		System.out.println(Game.isSlotAvailable(gameSlotAvailability,selection));
 		
 		if(Game.isSlotAvailable(gameSlotAvailability,selection)) {
 			return selection;

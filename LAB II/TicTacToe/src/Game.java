@@ -3,7 +3,8 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Game {
-	public static String symbol = " %s ";
+	public static String symbol = "%s";
+	public static String defaultSlot = "%s";
 	public int size;
 	private String player;
 	private String ai;
@@ -11,6 +12,7 @@ public class Game {
 	private String player2;
 	public String winner;
 	public static String[] options = {"X","O"};
+	public int gridSize;
 	protected String[] gameSlot;
 	protected Boolean[] gameSlotAvailability;
 	public Rules rules = new Rules();
@@ -28,11 +30,11 @@ public class Game {
 	}
 	
 	public void setPlayerSymbol(String input) {
-		this.player = Game.symbol.replace("%s", input);
+		this.player = Game.symbol.replace(Game.defaultSlot, input);
 	}
 			
 	public void setAiSymbol(String input) {
-		this.ai = Game.symbol.replace("%s", input);
+		this.ai = Game.symbol.replace(Game.defaultSlot, input);
 	}
 	
 	public void setWinner(String input) {
@@ -42,14 +44,14 @@ public class Game {
 	public void resetState() {
 		this.player = "";
 		
-		int gridSize = (this.size) * (this.size);
+		this.gridSize = (this.size) * (this.size);
 		
-		this.gameSlot = new String[gridSize + 1];
-		this.gameSlotAvailability = new Boolean[gridSize + 1];
+		this.gameSlot = new String[this.gridSize + 1];
+		this.gameSlotAvailability = new Boolean[this.gridSize + 1];
 		
-		for(int i = 0; i <= gridSize; i++){
+		for(int i = 0; i <= this.gridSize; i++){
 			if(i != 0) {
-				String slot = Game.symbol.replace("%s", Integer.toString(i));
+				String slot = Game.symbol.replace(Game.defaultSlot, Integer.toString(i));
 				this.setSlot(i, slot);
 				this.toggleSlotAvailability(i, true);
 			} else {
@@ -74,26 +76,26 @@ public class Game {
 	
 	public void play() {
 		
-		Ui.drawBoard(this.size, this.gameSlot);
-		//this.playerMove();
+		Ui.drawBoard(this.size, this.gridSize, this.gameSlot);
+		this.playerMove();
 		
-//		if(this.hasEnded()) {
-//			Ui.drawBoard(this.size, this.gameSlot);
-//			if(this.hasWinner()) {
-//				Ui.displayWinnerMessage(this.winner, this.player);
-//			} else {				
-//				Ui.displayEndOfGameMessage();
-//			}
-//			this.end();
-//		} 
-//		else {
-//			this.aiMove();
-//			this.play();
-//		}
+		if(this.hasEnded()) {
+			Ui.drawBoard(this.size, this.gridSize, this.gameSlot);
+			if(this.hasWinner()) {
+				Ui.displayWinnerMessage(this.winner, this.player);
+			} else {				
+				Ui.displayEndOfGameMessage();
+			}
+			this.end();
+		} 
+		else {
+			this.aiMove();
+			this.play();
+		}
 	}
 	
 	public void playerMove() {
-		int selection = Ui.promptForSlot();
+		int selection = Ui.promptForSlot(this.gridSize);
 		if(Game.isSlotAvailable(this.gameSlotAvailability,selection)) {
 			this.selectSlot(selection, this.player);
 			Game.playerHistory.add(selection);

@@ -3,10 +3,13 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class Ui {
-	public static String promptForSize =  "\n Digite um número inteiro maior que 3 para definir o tamanho do tabuleiro... \n";
+	public static String columnSlotSeparator = "|";
+	public static String columnLineSeparator = "+";
+	public static String slotLineSeparator = "-";
+	public static String promptForSize =  "\n Digite um número inteiro maior que 3 (3x3) e menor que 9 (9x9) para definir o tamanho do tabuleiro... \n";
 	public static String errorOfInput = "Erro de I/O: ";
 	public static String errorOfInputWantsInt = "O valor digitado deve ser inteiro: ";
-	public static String promptForSlotSelection =  "\n Digite um número de 1 a 9 para selecionar um slot disponível... \n";
+	public static String promptForSlotSelection =  "\n Digite um número de 1 a %s para selecionar um slot disponível... \n";
 	public static String promptForOption = "Digite X, ou O para iniciar... \n";
 	public static String promptForNewGame = "Gostaria de Iniciar uma nova partida? Digite S para sim e N para não... \n";
 	public static String gameEnded = "O jogo acabou. Ninguém venceu. \n";
@@ -16,10 +19,13 @@ public class Ui {
 	private static InputStreamReader inputStream = new InputStreamReader (System.in);
 	private static BufferedReader buffer = new BufferedReader(inputStream);
 	
-	public static void drawBoard(int size, String[] gameSlot) {
+	public static void drawBoard(int size, int gridSize, String[] gameSlot) {
 
 		int slotPointer = 1;
 		String lineSeparator = "";
+		int slotLengthMultiplier = Integer.toString(gridSize).length();
+		
+		
 		
 		for(int row = 0; row < size; row++){
 			
@@ -27,15 +33,33 @@ public class Ui {
 			
 			for(int col = 0; col < size; col++){
 				
-				if (col == (size - 1)) {
-					gameLine = gameLine + Game.symbol.replace("%s", gameSlot[slotPointer]);
-					if (row == 0) {
-						lineSeparator = lineSeparator + "-----"; 
+				int spaces = slotLengthMultiplier;
+				int slotLen = gameSlot[slotPointer].length();
+				
+				if(slotLen < slotLengthMultiplier) {
+					if((slotLen % 1) == 0) {
+						spaces = spaces + 1;
+					} else {
+						spaces = spaces + 2;
 					}
-				} else {
-					gameLine = gameLine + Game.symbol.replace("%s", gameSlot[slotPointer]) + "|";
+				}
+				
+				if((spaces % 1) == 0) {
+					spaces = spaces + 1; 
+				}
+				
+				
+				String slotLineSeparator = Ui.getSlotLineSeparator(spaces);
+				
+				gameLine = gameLine + getSpaceFilledSlotSymbol(gameSlot[slotPointer],spaces);
+				if (row == 0) {
+					lineSeparator = lineSeparator + slotLineSeparator; 
+				}
+				
+				if (col != (size - 1)) {
+					gameLine = gameLine + columnSlotSeparator;
 					if (row == 0) {
-						lineSeparator = lineSeparator + "-----+";
+						lineSeparator = lineSeparator + columnLineSeparator;
 					}
 				}
 				
@@ -50,8 +74,31 @@ public class Ui {
 		
 	}
 	
-	public static int promptForSlot() {
-		System.out.print(Ui.promptForSlotSelection);
+	public static String getSpaceFilledSlotSymbol(String symbol, int slotLengthMultiplier) {
+		String preppend = "";
+		String append = "";
+
+		for(int i = 1; i <= (slotLengthMultiplier); i++) {
+			if(i % 2 == 0) {
+				preppend = preppend + " ";
+			} else {
+				append = append + " ";
+			}
+		}
+		
+		return Game.symbol.replace(Game.defaultSlot, preppend + symbol + append);
+	}
+	
+	public static String getSlotLineSeparator(int slotLengthMultiplier) {
+		String slotLineSeparator = "";
+		for(int i = 0; i <= (slotLengthMultiplier); i++) {
+			slotLineSeparator = slotLineSeparator + Ui.slotLineSeparator;
+		}
+		return slotLineSeparator;
+	}
+	
+	public static int promptForSlot(int gridSize) {
+		System.out.printf(Ui.promptForSlotSelection,gridSize);
 		return Ui.getIntInput();
 	}
 	
@@ -62,7 +109,16 @@ public class Ui {
 	
 	public static int promptForBoardSize() {
         System.out.print(Ui.promptForSize);
-        return Ui.getIntInput();
+        int input = Ui.getIntInput();
+        if(input > 3 && input < 9)
+        {
+        	return input;
+        } else if(input > 9) {
+        	return 9;
+        } else {
+        	return 3;
+        }
+        	
 	}
 	
 	public static String promptForNewGame() {
