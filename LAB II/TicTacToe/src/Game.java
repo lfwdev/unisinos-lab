@@ -15,7 +15,7 @@ public class Game {
 	public int gridSize;
 	protected String[] gameSlot;
 	protected Boolean[] gameSlotAvailability;
-	public Rules rules = new Rules();
+	public Rules rules;
 	public static ArrayList<Integer> playerHistory = new ArrayList<Integer> ();
 	public static ArrayList<Integer> aiHistory = new ArrayList<Integer> ();
 	
@@ -25,6 +25,8 @@ public class Game {
 	
 	public void newGame() {
 		this.size = Ui.promptForBoardSize();
+		this.gridSize = (this.size) * (this.size);
+		this.rules = new Rules(this.size,this.gridSize);
 		this.start();
 		this.play();
 	}
@@ -43,9 +45,7 @@ public class Game {
 	
 	public void resetState() {
 		this.player = "";
-		
-		this.gridSize = (this.size) * (this.size);
-		
+
 		this.gameSlot = new String[this.gridSize + 1];
 		this.gameSlotAvailability = new Boolean[this.gridSize + 1];
 		
@@ -138,6 +138,9 @@ public class Game {
 	
 	public boolean hasWinner() {
 		for(List l : rules.winningCombinations) {
+			System.out.printf("PLH: %s \n", Game.playerHistory);
+			System.out.printf("AIH: %s \n", Game.aiHistory);
+			
 			if(Game.playerHistory.containsAll(l)) {
 				this.setWinner(this.player);
 				return true;

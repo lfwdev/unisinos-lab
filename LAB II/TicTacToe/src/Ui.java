@@ -6,7 +6,7 @@ public class Ui {
 	public static String columnSlotSeparator = "|";
 	public static String columnLineSeparator = "+";
 	public static String slotLineSeparator = "-";
-	public static String promptForSize =  "\n Digite um número inteiro maior que 3 (3x3) e menor que 9 (9x9) para definir o tamanho do tabuleiro... \n";
+	public static String promptForSize =  "\n Digite um número inteiro maior que 3 (3x3) e menor ou igual à 9 (9x9) para definir o tamanho do tabuleiro... \n";
 	public static String errorOfInput = "Erro de I/O: ";
 	public static String errorOfInputWantsInt = "O valor digitado deve ser inteiro: ";
 	public static String promptForSlotSelection =  "\n Digite um número de 1 a %s para selecionar um slot disponível... \n";
@@ -15,7 +15,6 @@ public class Ui {
 	public static String gameEnded = "O jogo acabou. Ninguém venceu. \n";
 	public static String winnerMessage = "O jogo acabou. %s venceu. \n";
 	public static String congratulations = "O jogo acabou. Parabéns, você venceu. \n";
-	
 	private static InputStreamReader inputStream = new InputStreamReader (System.in);
 	private static BufferedReader buffer = new BufferedReader(inputStream);
 	
@@ -24,8 +23,6 @@ public class Ui {
 		int slotPointer = 1;
 		String lineSeparator = "";
 		int slotLengthMultiplier = Integer.toString(gridSize).length();
-		
-		
 		
 		for(int row = 0; row < size; row++){
 			
@@ -47,7 +44,6 @@ public class Ui {
 				if((spaces % 1) == 0) {
 					spaces = spaces + 1; 
 				}
-				
 				
 				String slotLineSeparator = Ui.getSlotLineSeparator(spaces);
 				
@@ -110,7 +106,7 @@ public class Ui {
 	public static int promptForBoardSize() {
         System.out.print(Ui.promptForSize);
         int input = Ui.getIntInput();
-        if(input > 3 && input < 9)
+        if(input > 3 && input < 10)
         {
         	return input;
         } else if(input > 9) {
