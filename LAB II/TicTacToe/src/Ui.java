@@ -6,15 +6,16 @@ public class Ui {
 	public static String columnSlotSeparator = "|";
 	public static String columnLineSeparator = "+";
 	public static String slotLineSeparator = "-";
+	public static String promptForName = "\n Digite o nome para o jogador %s : \n";
 	public static String promptForSize =  "\n Digite um número inteiro maior que 3 (3x3) e menor ou igual à 9 (9x9) para definir o tamanho do tabuleiro... \n";
 	public static String errorOfInput = "Erro de I/O: ";
 	public static String errorOfInputWantsInt = "O valor digitado deve ser inteiro: ";
-	public static String promptForSlotSelection =  "\n Digite um número de 1 a %s para selecionar um slot disponível... \n";
+	public static String promptForSlotSelection =  "\n Turno do jogador %s. Digite um número de 1 a %s para selecionar um slot disponível... \n";
 	public static String promptForOption = "Digite X, ou O para iniciar... \n";
 	public static String promptForNewGame = "Gostaria de Iniciar uma nova partida? Digite S para sim e N para não... \n";
 	public static String gameEnded = "O jogo acabou. Ninguém venceu. \n";
 	public static String winnerMessage = "O jogo acabou. %s venceu. \n";
-	public static String congratulations = "O jogo acabou. Parabéns, você venceu. \n";
+	public static String congratulations = "O jogo acabou. Parabéns, %s venceu. \n";
 	private static InputStreamReader inputStream = new InputStreamReader (System.in);
 	private static BufferedReader buffer = new BufferedReader(inputStream);
 	
@@ -93,13 +94,18 @@ public class Ui {
 		return slotLineSeparator;
 	}
 	
-	public static int promptForSlot(int gridSize) {
-		System.out.printf(Ui.promptForSlotSelection,gridSize);
+	public static int promptForSlot(String playerSymbol, int gridSize) {
+		System.out.printf(Ui.promptForSlotSelection,playerSymbol,gridSize);
 		return Ui.getIntInput();
 	}
 	
 	public static String promptForOption() {   
         System.out.print(Ui.promptForOption);
+        return Ui.getStringInput();
+    }
+	
+	public static String promptForPlayerName(String symbol) {   
+        System.out.printf(Ui.promptForName,symbol);
         return Ui.getStringInput();
     }
 	
@@ -122,12 +128,8 @@ public class Ui {
         return Ui.getStringInput();
 	}
 	
-	public static void displayWinnerMessage(String winner, String player) {
-		if(winner.contains(player)) {
-			System.out.print(Ui.congratulations);
-		} else {	
-			System.out.printf(Ui.winnerMessage,winner);
-		}			
+	public static void displayWinnerMessage(Player winner) {
+		System.out.printf(Ui.congratulations, winner.getName());		
 	}
 	
 	public static void displayEndOfGameMessage() {

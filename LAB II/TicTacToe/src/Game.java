@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -6,21 +5,21 @@ public class Game {
 	public static String symbol = "%s";
 	public static String defaultSlot = "%s";
 	public int size;
-	private String player;
-	private String ai;
-	private String player1;
-	private String player2;
-	public String winner;
+	private Player player1;
+	private Player player2;
+	public Player winner;
 	public static String[] options = {"X","O"};
 	public int gridSize;
 	protected String[] gameSlot;
 	protected Boolean[] gameSlotAvailability;
 	public Rules rules;
-	public static ArrayList<Integer> playerHistory = new ArrayList<Integer> ();
-	public static ArrayList<Integer> aiHistory = new ArrayList<Integer> ();
 	
 	public Game() {
 		this.newGame();
+	}
+	
+	public void setWinner(Player player) {
+		this.winner = player;
 	}
 	
 	public void newGame() {
@@ -31,30 +30,31 @@ public class Game {
 		this.play();
 	}
 	
-	public void setPlayerSymbol(String input) {
-		this.player = Game.symbol.replace(Game.defaultSlot, input);
-	}
-			
-	public void setAiSymbol(String input) {
-		this.ai = Game.symbol.replace(Game.defaultSlot, input);
-	}
-	
-	public void setWinner(String input) {
-		this.winner = input;
+	public void start() {
+		this.resetState();
+		this.player1.setSymbol(options[0]);
+		this.player2.setSymbol(options[1]);
+		this.player1.setName();
+		this.player2.setName();
 	}
 	
 	public void resetState() {
-		this.player = "";
-
+		this.player1 = new Player();
+		this.player2 = new Player();
+		
 		this.gameSlot = new String[this.gridSize + 1];
 		this.gameSlotAvailability = new Boolean[this.gridSize + 1];
 		
-		for(int i = 0; i <= this.gridSize; i++){
-			if(i != 0) {
+		for(int i = 0; i <= this.gridSize; i++)
+		{
+			if(i != 0) 
+			{
 				String slot = Game.symbol.replace(Game.defaultSlot, Integer.toString(i));
 				this.setSlot(i, slot);
 				this.toggleSlotAvailability(i, true);
-			} else {
+			} 
+			else 
+			{
 				this.setSlot(i, " R ");
 				this.toggleSlotAvailability(i, false);
 			}
@@ -69,45 +69,28 @@ public class Game {
 		this.gameSlotAvailability[position] = state;
 	}
 	
-	public void start() {
-		this.resetState();
-		this.setSymbolSelection(Ui.promptForOption());
-	}
-	
 	public void play() {
-		
-		Ui.drawBoard(this.size, this.gridSize, this.gameSlot);
-		this.playerMove();
-		
-		if(this.hasEnded()) {
+		if(this.hasEnded()) 
+		{
 			Ui.drawBoard(this.size, this.gridSize, this.gameSlot);
-			if(this.hasWinner()) {
-				Ui.displayWinnerMessage(this.winner, this.player);
-			} else {				
+			if(this.hasWinner()) 
+			{
+				Ui.displayWinnerMessage(this.winner);
+			} 
+			else 
+			{				
 				Ui.displayEndOfGameMessage();
 			}
 			this.end();
 		} 
-		else {
-			this.aiMove();
+		else 
+		{
+			Ui.drawBoard(this.size, this.gridSize, this.gameSlot);
+			this.player1.move(this);
+			Ui.drawBoard(this.size, this.gridSize, this.gameSlot);
+			this.player2.move(this);
 			this.play();
 		}
-	}
-	
-	public void playerMove() {
-		int selection = Ui.promptForSlot(this.gridSize);
-		if(Game.isSlotAvailable(this.gameSlotAvailability,selection)) {
-			this.selectSlot(selection, this.player);
-			Game.playerHistory.add(selection);
-        } else {
-        	this.playerMove();
-        }
-	}
-	
-	public void aiMove() {
-		int selection = Ai.move(gameSlot, gameSlotAvailability);
-		this.selectSlot(selection, this.ai);
-		Game.aiHistory.add(selection);
 	}
 	
 	public static boolean isSlotAvailable(Boolean[] gameSlotAvailability,int selection) {
@@ -115,38 +98,20 @@ public class Game {
 	}
 	
 	public void selectSlot(int selection, String player) {
-		
 		this.gameSlot[selection] = player;
 		this.gameSlotAvailability[selection] = false;
-		
-	}
-	
-	public void setSymbolSelection(String input) {
-		
-		if(input instanceof String) {
-    		if(input.toUpperCase().contains(Game.options[0])) {
-    			this.setPlayerSymbol(Game.options[0]);
-    			this.setAiSymbol(Game.options[1]);
-    		} else {
-    			this.setPlayerSymbol(Game.options[1]);
-    			this.setAiSymbol(Game.options[0]);
-    		}
-    	} else {
-    		this.setSymbolSelection(Ui.promptForOption());
-    	}
 	}
 	
 	public boolean hasWinner() {
 		for(List l : rules.winningCombinations) {
-			System.out.printf("PLH: %s \n", Game.playerHistory);
-			System.out.printf("AIH: %s \n", Game.aiHistory);
-			
-			if(Game.playerHistory.containsAll(l)) {
-				this.setWinner(this.player);
+			if(this.player1.getHistory().containsAll(l)) {
+				this.setWinner(this.player1);
+				this.player1.addScore();
 				return true;
 			}
-			else if(Game.aiHistory.containsAll(l)) {
-				this.setWinner(this.ai);
+			else if(this.player2.getHistory().containsAll(l)) {
+				this.setWinner(this.player2);
+				this.player2.addScore();
 				return true;
 			}
 		}
