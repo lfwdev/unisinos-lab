@@ -4,8 +4,11 @@ import java.util.List;
 
 public class Game {
 	public static String symbol = " %s ";
+	public int size;
 	private String player;
 	private String ai;
+	private String player1;
+	private String player2;
 	public String winner;
 	public static String[] options = {"X","O"};
 	protected String[] gameSlot;
@@ -14,7 +17,12 @@ public class Game {
 	public static ArrayList<Integer> playerHistory = new ArrayList<Integer> ();
 	public static ArrayList<Integer> aiHistory = new ArrayList<Integer> ();
 	
-	public void main() {
+	public Game() {
+		this.newGame();
+	}
+	
+	public void newGame() {
+		this.size = Ui.promptForBoardSize();
 		this.start();
 		this.play();
 	}
@@ -33,8 +41,30 @@ public class Game {
 	
 	public void resetState() {
 		this.player = "";
-		this.gameSlot = new String[] {" R ", " 1 "," 2 "," 3 "," 4 "," 5 "," 6 "," 7 "," 8 "," 9 "};
-		this.gameSlotAvailability = new Boolean[] {false,true,true,true,true,true,true,true,true,true};
+		
+		int gridSize = (this.size) * (this.size);
+		
+		this.gameSlot = new String[gridSize + 1];
+		this.gameSlotAvailability = new Boolean[gridSize + 1];
+		
+		for(int i = 0; i <= gridSize; i++){
+			if(i != 0) {
+				String slot = Game.symbol.replace("%s", Integer.toString(i));
+				this.setSlot(i, slot);
+				this.toggleSlotAvailability(i, true);
+			} else {
+				this.setSlot(i, " R ");
+				this.toggleSlotAvailability(i, false);
+			}
+		}
+	}
+	
+	public void setSlot(int position, String slotContent) {
+		this.gameSlot[position] = slotContent;
+	}
+	
+	public void toggleSlotAvailability(int position, Boolean state) {
+		this.gameSlotAvailability[position] = state;
 	}
 	
 	public void start() {
@@ -44,22 +74,22 @@ public class Game {
 	
 	public void play() {
 		
-		Ui.drawBoard(gameSlot);
-		this.playerMove();
+		Ui.drawBoard(this.size, this.gameSlot);
+		//this.playerMove();
 		
-		if(this.hasEnded()) {
-			Ui.drawBoard(gameSlot);
-			if(this.hasWinner()) {
-				Ui.displayWinnerMessage(this.winner, this.player);
-			} else {				
-				Ui.displayEndOfGameMessage();
-			}
-			this.end();
-		} 
-		else {
-			this.aiMove();
-			this.play();
-		}
+//		if(this.hasEnded()) {
+//			Ui.drawBoard(this.size, this.gameSlot);
+//			if(this.hasWinner()) {
+//				Ui.displayWinnerMessage(this.winner, this.player);
+//			} else {				
+//				Ui.displayEndOfGameMessage();
+//			}
+//			this.end();
+//		} 
+//		else {
+//			this.aiMove();
+//			this.play();
+//		}
 	}
 	
 	public void playerMove() {
@@ -132,8 +162,7 @@ public class Game {
 	public void end() {
 		String input = Ui.promptForNewGame();
 		if(input.toUpperCase().contains("S")) {
-			this.start();
-			this.play();
+			this.newGame();
 		}
 	}
 }
