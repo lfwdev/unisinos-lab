@@ -10,7 +10,7 @@ public class Ui {
 	public static String promptForSize =  "\n Digite um número inteiro maior que 3 (3x3) e menor ou igual à 9 (9x9) para definir o tamanho do tabuleiro... \n";
 	public static String errorOfInput = "Erro de I/O: ";
 	public static String errorOfInputWantsInt = "O valor digitado deve ser inteiro: ";
-	public static String promptForSlotSelection =  "\n Turno do jogador %s. Digite um número de 1 a %s para selecionar um slot disponível... \n";
+	public static String promptForSlotSelection =  "\n Turno de %s (%s). Digite um número de 1 a %s para selecionar um slot disponível... \n";
 	public static String promptForOption = "Digite X, ou O para iniciar... \n";
 	public static String promptForNewGame = "Gostaria de Iniciar uma nova partida? Digite S para sim e N para não... \n";
 	public static String gameEnded = "O jogo acabou. Ninguém venceu. \n";
@@ -95,8 +95,8 @@ public class Ui {
 		return slotLineSeparator;
 	}
 	
-	public static int promptForSlot(String playerSymbol, int gridSize) {
-		System.out.printf(Ui.promptForSlotSelection,playerSymbol,gridSize);
+	public static int promptForSlot(Player player, int gridSize) {
+		System.out.printf(Ui.promptForSlotSelection,player.getName(),player.getSymbol(),gridSize);
 		return Ui.getIntInput();
 	}
 	
@@ -121,7 +121,6 @@ public class Ui {
         } else {
         	return 3;
         }
-        	
 	}
 	
 	public static String promptForNewGame() {

@@ -43,7 +43,7 @@ public class Player {
 	}
 	
 	public void move(Game game) {
-		int selection = Ui.promptForSlot(this.getSymbol(),game.gridSize);
+		int selection = Ui.promptForSlot(this,game.gridSize);
 		if(Game.isSlotAvailable(game.gameSlotAvailability,selection)) {
 			game.selectSlot(selection, this.getSymbol());
 			this.history.add(selection);
