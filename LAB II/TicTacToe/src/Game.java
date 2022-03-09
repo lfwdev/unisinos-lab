@@ -5,7 +5,7 @@ public class Game {
 	public int size;
 	private Player player1 = new Player();
 	private Player player2 = new Player();
-	public Player winner;
+	public Player winner = new Player();
 	public static String[] options = {"X","O"};
 	public int gridSize;
 	protected String[] gameSlotState;
@@ -21,7 +21,10 @@ public class Game {
 	}
 	
 	public void setWinner(Player player) {
-		this.winner = player;
+		if(this.winner != player) {
+			this.winner = player;
+			player.addScore();
+		}
 	}
 	
 	public void newGame() {
@@ -91,12 +94,10 @@ public class Game {
 		for(List l : rules.winningCombinations) {
 			if(this.player1.getHistory().containsAll(l)) {
 				this.setWinner(this.player1);
-				this.player1.addScore();
 				return true;
 			}
 			else if(this.player2.getHistory().containsAll(l)) {
 				this.setWinner(this.player2);
-				this.player2.addScore();
 				return true;
 			}
 		}

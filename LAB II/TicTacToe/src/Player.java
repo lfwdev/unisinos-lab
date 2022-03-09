@@ -1,8 +1,8 @@
 import java.util.ArrayList;
 
 public class Player {
-	private String name;
-	private String symbol;
+	private String name = "";
+	private String symbol = "";
 	public ArrayList<Integer> history = new ArrayList<Integer> ();
 	public int score;
 	
