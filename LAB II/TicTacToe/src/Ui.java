@@ -19,7 +19,7 @@ public class Ui {
 	private static InputStreamReader inputStream = new InputStreamReader (System.in);
 	private static BufferedReader buffer = new BufferedReader(inputStream);
 	
-	public static void drawBoard(int size, int gridSize, String[] gameSlot) {
+	public static void drawBoard(int size, int gridSize, String[] gameSlotState) {
 
 		int slotPointer = 1;
 		String lineSeparator = "";
@@ -32,7 +32,7 @@ public class Ui {
 			for(int col = 0; col < size; col++){
 				
 				int spaces = slotLengthMultiplier;
-				int slotLen = gameSlot[slotPointer].length();
+				int slotLen = gameSlotState[slotPointer].length();
 				
 				if(slotLen < slotLengthMultiplier) {
 					if((slotLen % 1) == 0) {
@@ -48,7 +48,7 @@ public class Ui {
 				
 				String slotLineSeparator = Ui.getSlotLineSeparator(spaces);
 				
-				gameLine = gameLine + getSpaceFilledSlotSymbol(gameSlot[slotPointer],spaces);
+				gameLine = gameLine + getSpaceFilledSlotSymbol(gameSlotState[slotPointer],spaces);
 				if (row == 0) {
 					lineSeparator = lineSeparator + slotLineSeparator; 
 				}
@@ -83,7 +83,7 @@ public class Ui {
 			}
 		}
 		
-		return Game.symbol.replace(Game.defaultSlot, preppend + symbol + append);
+		return (preppend + symbol + append);
 	}
 	
 	public static String getSlotLineSeparator(int slotLengthMultiplier) {

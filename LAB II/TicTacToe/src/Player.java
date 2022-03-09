@@ -12,7 +12,7 @@ public class Player {
 	}
 	
 	public void setSymbol(String input) {
-		this.symbol = Game.symbol.replace(Game.defaultSlot, input);
+		this.symbol = input;
 	}
 	
 	public void setName() {

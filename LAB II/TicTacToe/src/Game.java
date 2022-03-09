@@ -2,15 +2,13 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Game {
-	public static String symbol = "%s";
-	public static String defaultSlot = "%s";
 	public int size;
 	private Player player1;
 	private Player player2;
 	public Player winner;
 	public static String[] options = {"X","O"};
 	public int gridSize;
-	protected String[] gameSlot;
+	protected String[] gameSlotState;
 	protected Boolean[] gameSlotAvailability;
 	public Rules rules;
 	
@@ -42,14 +40,14 @@ public class Game {
 		this.player1 = new Player();
 		this.player2 = new Player();
 		
-		this.gameSlot = new String[this.gridSize + 1];
+		this.gameSlotState = new String[this.gridSize + 1];
 		this.gameSlotAvailability = new Boolean[this.gridSize + 1];
 		
 		for(int i = 0; i <= this.gridSize; i++)
 		{
 			if(i != 0) 
 			{
-				String slot = Game.symbol.replace(Game.defaultSlot, Integer.toString(i));
+				String slot = Integer.toString(i);
 				this.setSlot(i, slot);
 				this.toggleSlotAvailability(i, true);
 			} 
@@ -62,7 +60,7 @@ public class Game {
 	}
 	
 	public void setSlot(int position, String slotContent) {
-		this.gameSlot[position] = slotContent;
+		this.gameSlotState[position] = slotContent;
 	}
 	
 	public void toggleSlotAvailability(int position, Boolean state) {
@@ -70,26 +68,20 @@ public class Game {
 	}
 	
 	public void play() {
-		if(this.hasEnded()) 
+		if(!this.hasEnded()) 
 		{
-			Ui.drawBoard(this.size, this.gridSize, this.gameSlot);
-			if(this.hasWinner()) 
-			{
-				Ui.displayWinnerMessage(this.winner);
-			} 
-			else 
-			{				
-				Ui.displayEndOfGameMessage();
-			}
-			this.end();
-		} 
-		else 
-		{
-			Ui.drawBoard(this.size, this.gridSize, this.gameSlot);
+			Ui.drawBoard(this.size, this.gridSize, this.gameSlotState);
 			this.player1.move(this);
-			Ui.drawBoard(this.size, this.gridSize, this.gameSlot);
+		} 
+		if(!this.hasEnded()) 
+		{
+			Ui.drawBoard(this.size, this.gridSize, this.gameSlotState);
 			this.player2.move(this);
 			this.play();
+		}
+		if(this.hasEnded()) 
+		{
+			this.end();
 		}
 	}
 	
@@ -98,7 +90,7 @@ public class Game {
 	}
 	
 	public void selectSlot(int selection, String player) {
-		this.gameSlot[selection] = player;
+		this.gameSlotState[selection] = player;
 		this.gameSlotAvailability[selection] = false;
 	}
 	
@@ -130,9 +122,25 @@ public class Game {
 	}
 	
 	public void end() {
+		
+		Ui.drawBoard(this.size, this.gridSize, this.gameSlotState);
+		if(this.hasWinner()) 
+		{
+			Ui.displayWinnerMessage(this.winner);
+		} 
+		else 
+		{				
+			Ui.displayEndOfGameMessage();
+		}
+		
 		String input = Ui.promptForNewGame();
-		if(input.toUpperCase().contains("S")) {
+		if(input.toUpperCase().contains("S")) 
+		{
 			this.newGame();
+		} 
+		else 
+		{
+			System.exit(0);
 		}
 	}
 }
