@@ -3,8 +3,8 @@ import java.util.List;
 
 public class Game {
 	public int size;
-	private Player player1;
-	private Player player2;
+	private Player player1 = new Player();
+	private Player player2 = new Player();
 	public Player winner;
 	public static String[] options = {"X","O"};
 	public int gridSize;
@@ -13,6 +13,10 @@ public class Game {
 	public Rules rules;
 	
 	public Game() {
+		this.player1.setSymbol(options[0]);
+		this.player2.setSymbol(options[1]);
+		this.player1.setName();
+		this.player2.setName();
 		this.newGame();
 	}
 	
@@ -24,24 +28,18 @@ public class Game {
 		this.size = Ui.promptForBoardSize();
 		this.gridSize = (this.size) * (this.size);
 		this.rules = new Rules(this.size,this.gridSize);
-		this.start();
+		this.resetState();
 		this.play();
 	}
-	
-	public void start() {
-		this.resetState();
-		this.player1.setSymbol(options[0]);
-		this.player2.setSymbol(options[1]);
-		this.player1.setName();
-		this.player2.setName();
-	}
-	
+
 	public void resetState() {
-		this.player1 = new Player();
-		this.player2 = new Player();
-		
+		this.player1.resetState();
+		this.player2.resetState();
+		this.setWinner(new Player());
 		this.gameSlotState = new String[this.gridSize + 1];
 		this.gameSlotAvailability = new Boolean[this.gridSize + 1];
+		this.setSlot(0, " R ");
+		this.toggleSlotAvailability(0, false);
 		
 		for(int i = 0; i <= this.gridSize; i++)
 		{
@@ -50,11 +48,6 @@ public class Game {
 				String slot = Integer.toString(i);
 				this.setSlot(i, slot);
 				this.toggleSlotAvailability(i, true);
-			} 
-			else 
-			{
-				this.setSlot(i, " R ");
-				this.toggleSlotAvailability(i, false);
 			}
 		}
 	}
@@ -129,9 +122,11 @@ public class Game {
 			Ui.displayWinnerMessage(this.winner);
 		} 
 		else 
-		{				
+		{ 		
 			Ui.displayEndOfGameMessage();
 		}
+		
+		Ui.displayScoreBoard(this.player1,this.player2);
 		
 		String input = Ui.promptForNewGame();
 		if(input.toUpperCase().contains("S")) 

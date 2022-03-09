@@ -16,6 +16,7 @@ public class Ui {
 	public static String gameEnded = "O jogo acabou. Ninguém venceu. \n";
 	public static String winnerMessage = "O jogo acabou. %s venceu. \n";
 	public static String congratulations = "O jogo acabou. Parabéns, %s venceu. \n";
+	public static String displayScore = " Pontuação ----  \n %s: %s  \n %s: %s  \n ------------- \n";
 	private static InputStreamReader inputStream = new InputStreamReader (System.in);
 	private static BufferedReader buffer = new BufferedReader(inputStream);
 	
@@ -165,5 +166,9 @@ public class Ui {
            System.out.println (Ui.errorOfInput + error);
         }
         return input;
+	}
+	
+	public static void displayScoreBoard(Player p1, Player p2) {
+		System.out.printf(Ui.displayScore,p1.getName(),p1.getScoreAsString(),p2.getName(),p2.getScoreAsString());
 	}
 }

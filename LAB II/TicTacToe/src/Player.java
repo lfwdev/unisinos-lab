@@ -1,14 +1,13 @@
 import java.util.ArrayList;
 
 public class Player {
-	public Boolean isAi = false;
 	private String name;
 	private String symbol;
 	public ArrayList<Integer> history = new ArrayList<Integer> ();
-	public int score = 0;
+	public int score;
 	
 	public Player() {
-		
+		this.score = 0;
 	}
 	
 	public void setSymbol(String input) {
@@ -23,6 +22,10 @@ public class Player {
 		return this.name;
 	}
 	
+	public String getScoreAsString() {
+		return Integer.toString(this.score);
+	}
+	
 	public String getSymbol() {
 		return this.symbol;
 	}
@@ -33,6 +36,10 @@ public class Player {
 	
 	public ArrayList<Integer> getHistory() {
 		return this.history;
+	}
+	
+	public void resetState() {
+		this.history = new ArrayList<Integer> ();
 	}
 	
 	public void move(Game game) {
