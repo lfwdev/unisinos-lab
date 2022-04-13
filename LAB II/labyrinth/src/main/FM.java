@@ -7,43 +7,50 @@ import java.io.IOException;
 
 public class FM {
 	public char[][] fileAsArray;
+	public int numberOfLines;
+	public int numberOfColumns;
+	private FileReader fr;
+	private BufferedReader br;
 	public String PATH = System.getProperty("user.dir");
 
 	public FM(String fileName) {
 		this.setFileAsArray(fileName);
 	}
 	
-	public void setFileAsArray(String nomearq) {
-		
-		char[][] mat = new char[0][0];
-		// código da profa Tati 
-		try {
-			FileReader fr = new FileReader(this.PATH + "/" + nomearq);
-			BufferedReader br = new BufferedReader(fr);
-			 
-			String line = br.readLine();
-			int linha = Integer.parseInt(line.trim());
-			 
-			line = br.readLine();
-			int coluna = Integer.parseInt(line.trim());
-			 
-			mat = new char[linha][coluna];
+	private String getNextBufferedLine() throws IOException {
+		return this.br.readLine();
+	}
 	
-			for(int i = 0; i < mat.length;i++) {
-				line = br.readLine();
-				for (int j = 0; j <mat[i].length;j++)
-					mat[i][j] = line.charAt(j);
-			}
-			 
-			br.close();
-			
+	private void setNumberOfLines() throws NumberFormatException, IOException {
+		this.numberOfLines = Integer.parseInt(this.getNextBufferedLine().trim());
+	}
+	
+	private void setNumberOfColumns() throws NumberFormatException, IOException {
+		this.numberOfColumns = Integer.parseInt(this.getNextBufferedLine().trim());
+	}
+	
+	private void buildArrayFromFile() throws IOException {
+		for(int i = 0; i < this.fileAsArray.length;i++) {
+			String line = this.getNextBufferedLine();
+			for (int j = 0; j < this.fileAsArray[i].length;j++)
+				this.fileAsArray[i][j] = line.charAt(j);
+		}
+	}
+	
+	public void setFileAsArray(String nomearq) {
+		// código da profa Tati, separei em diversos métodos
+		try {
+			this.fr = new FileReader(this.PATH + "/" + nomearq);
+			this.br = new BufferedReader(this.fr);
+			this.setNumberOfLines();
+			this.setNumberOfColumns();
+			this.fileAsArray = new char[this.numberOfLines][this.numberOfColumns];
+			this.buildArrayFromFile();
+			this.br.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
-		
-		this.fileAsArray = mat;
+		}	
 	}
-
 }
