@@ -32,7 +32,7 @@ public class Labyrinth {
 	}
 	
 	public void debugFileAsArray() {
-		System.out.println(Arrays.toString(this.fileAsArray));
+		Ui.drawFile(this.fileAsArray);
 	}
 
 }
