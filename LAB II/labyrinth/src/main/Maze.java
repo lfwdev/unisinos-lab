@@ -1,21 +1,21 @@
 package main;
 
-import java.util.Arrays;
-
-public class Labyrinth {
+public class Maze {
 	private String fileName;
 	private char[][] fileAsArray;
-	public String lines;
-	public String columns;
+	private FM file;
+	private Explorer xplorer;
 
 	public static void main(String[] args) {
-		new Labyrinth();
+		new Maze();
 	}
 	
-	public Labyrinth() {
+	public Maze() {
 		this.setFileName(Ui.fileNamePrompt());
 		this.setFileAsArray();
 		this.debugFileAsArray();
+		this.xplorer = new Explorer(this.fileAsArray,this.file.numberOfColumns,this.file.numberOfLines);
+		xplorer.explore(0,0);
 	}
 	
 	private void setFileName(String name) {
@@ -27,12 +27,11 @@ public class Labyrinth {
 	}
 	
 	public void setFileAsArray() {
-		FM file = new FM(this.getFileName());
-		this.fileAsArray = file.fileAsArray;
+		this.file = new FM(this.getFileName());
+		this.fileAsArray = this.file.fileAsArray;
 	}
 	
 	public void debugFileAsArray() {
 		Ui.drawFile(this.fileAsArray);
 	}
-
 }

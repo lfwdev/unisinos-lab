@@ -14,7 +14,10 @@ public class Ui {
 	
     public static void drawFile(char[][] fileAsArray) {
         for(int row = 0; row < fileAsArray.length; row++){
-            System.out.println(Arrays.toString(fileAsArray[row]).trim());
+        	for(int col = 0; col < fileAsArray[row].length; col++){
+        		System.out.print(fileAsArray[row][col]);
+            }
+        	System.out.print("\n");
         }
     }
 
