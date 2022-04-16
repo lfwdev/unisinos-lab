@@ -1,8 +1,10 @@
 package main;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 
 public class FM {
@@ -60,16 +62,30 @@ public class FM {
 
 	}
 
+	public static boolean createFile(String filePath) {
+		File myObj = new File(filePath);
+		return myObj.canWrite();
+	}
+
+	public static void writeToFile(String filePath,String content) {
+		try {
+			FM.createFile(filePath);
+			FileWriter myWriter = new FileWriter(filePath);
+			myWriter.write(content);
+			myWriter.close();
+			System.out.printf("Arquivo salvo em: %s \n", filePath);
+		} catch (IOException e) {
+			System.out.println("An error occurred.");
+			e.printStackTrace();
+		}
+	  }
+
 	public void writeResult(boolean hasExit) {
 		
 		String success = "Existe um caminho para o labirinto";
 		String fail = "Não existe um caminho para o labirinto";
-		String savePath = this.PATH + "\\" + "saidaLabirinto.txt";
-
-		if(hasExit) {
-
-		} else {
-			
-		}
+		String savePath = this.PATH + "/" + "saidaLabirinto.txt";
+		
+		FM.writeToFile(savePath, (hasExit ? success : fail));
 	}
 }
