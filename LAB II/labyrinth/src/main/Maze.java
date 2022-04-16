@@ -17,7 +17,7 @@ public class Maze {
 		this.setFileAsArray();
 		this.debugFileAsArray();
 		this.xplorer = new Explorer(this.fileAsArray,this.file.numberOfColumns,this.file.numberOfLines);
-		xplorer.explore(0,0);
+		xplorer.explore(new int[] {0,0});
 	}
 	
 	private void setFileName(String name) {

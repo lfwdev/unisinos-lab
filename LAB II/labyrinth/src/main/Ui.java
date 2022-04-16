@@ -19,9 +19,11 @@ public class Ui {
                     System.out.print("\uD83D\uDE00");
                 } else {
                     if(fileAsArray[x][y] == ' ') {
-                        System.out.printf(" %s ",fileAsArray[x][y]);
+                        System.out.print("\u2B1C");
+                    } else if(fileAsArray[x][y] == 'D') {
+                        System.out.print("\u274E");
                     } else {
-                        System.out.printf("|%s|",fileAsArray[x][y]);
+                        System.out.print("\uD83D\uDFEB");
                     }
                 }
             }

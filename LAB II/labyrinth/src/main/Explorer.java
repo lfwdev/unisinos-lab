@@ -1,8 +1,6 @@
 package main;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class Explorer {
 	private char[][] maze;
@@ -15,36 +13,38 @@ public class Explorer {
 		this.history = new boolean[rows][cols];
 	}
 
-	public void explore(int x,int y) {
+	public void explore(int[] c) {
 		try {
-			int[] c = {x,y};
-			this.move(c);
-			//this.labelAsDiscovered();
-			this.discoverAdjacent(c);
-			this.explore(this.currPos[0],this.currPos[1]);
+			ArrayList<int[]> adjacentPaths = this.discoverAdjacent(c);
+			this.exploreAdjacent(c, adjacentPaths);
+			this.explore(new int[] {this.currPos[0],this.currPos[1]});
 		} catch (Exception e) {
 			System.out.printf("Execution stopped; \n %s \n", e.getMessage());
 		}
 	}
 	
 	// discovers adjacent counterclockwise
-	public void discoverAdjacent(int[] c) throws Exception {
+	public ArrayList<int[]> discoverAdjacent(int[] c) {
 		int [][] adjacent = new int [4][2];
-		ArrayList<int[]> paths = new ArrayList<>();
 		
 		adjacent[0] = this.getPosLeft(c); // left
 		adjacent[1] = this.getPosDown(c); // down
 		adjacent[2] = this.getPosRight(c); // right
 		adjacent[3] = this.getPosUp(c); // up
-
+		
+		ArrayList<int[]> paths = new ArrayList<>();
+		
 		for(int[] pos : adjacent) {
-			// debug
-			// System.out.printf(" %s,%s -> %s \n", pos[0], pos[1], this.tryMove(pos));
 			if(this.tryMove(pos)) {
 				paths.add(pos);
 			}
 		}
 
+		return paths;
+	}
+
+	public void exploreAdjacent(int[] c, ArrayList<int[]> paths) throws Exception {
+		
 		if(paths.size() > 1) {
 			for(int[] pos : paths) {
 				System.out.printf("pathBranching %s,%s \n",pos[0],pos[1]);
@@ -55,6 +55,7 @@ public class Explorer {
 			pathBranching.remove(0);
 		} else if(paths.size() > 0) {
 			this.move(paths.get(0));
+			this.labelAsDiscovered(paths.get(0));
 		} else if(pathBranching.size() > 0) {
 			this.move(pathBranching.get(0));
 			this.labelAsDiscovered(pathBranching.get(0));
@@ -100,12 +101,15 @@ public class Explorer {
 
 			System.out.printf("moving to: %s,%s \n",c[0],c[1]);
 			Ui.drawFile(this.maze,c);
+			if(this.isExit(c)) {
+				System.out.printf("I've found the exit at: %s,%s \n",c[0],c[1]);
+			}
 		}
 	}
 
 	public boolean tryMove(int[] c) {
 		if(this.isValidMove(c)) {
-			return this.isOpen(c);
+			return this.isOpen(c) || this.isExit(c);
 		}
 		return false;
 	}
