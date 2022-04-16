@@ -13,14 +13,21 @@ public class Explorer {
 		this.history = new boolean[rows][cols];
 	}
 
-	public void explore(int[] c) {
+	public boolean explore(int[] c) {
 		try {
+			this.labelAsDiscovered(c);
 			ArrayList<int[]> adjacentPaths = this.discoverAdjacent(c);
 			this.exploreAdjacent(c, adjacentPaths);
-			this.explore(new int[] {this.currPos[0],this.currPos[1]});
+			c = new int[] {this.currPos[0],this.currPos[1]};
+			if(this.isExit(c)) {
+				System.out.printf("Encontrei a saída em: %s,%s \n",c[0],c[1]);
+				return true;
+			}
+			this.explore(c);
 		} catch (Exception e) {
 			System.out.printf("Execution stopped; \n %s \n", e.getMessage());
 		}
+		return false;
 	}
 	
 	// discovers adjacent counterclockwise
@@ -51,14 +58,11 @@ public class Explorer {
 				pathBranching.add(pos);
 			}
 			this.move(pathBranching.get(0));
-			this.labelAsDiscovered(pathBranching.get(0));
 			pathBranching.remove(0);
 		} else if(paths.size() > 0) {
 			this.move(paths.get(0));
-			this.labelAsDiscovered(paths.get(0));
 		} else if(pathBranching.size() > 0) {
 			this.move(pathBranching.get(0));
-			this.labelAsDiscovered(pathBranching.get(0));
 			pathBranching.remove(0);
 		} else {
 			throw new Exception("Out of moves");
@@ -98,12 +102,8 @@ public class Explorer {
 		if(tryMove(c)) {
 			this.currPos[0] = c[0];
 			this.currPos[1] = c[1];
-
-			System.out.printf("moving to: %s,%s \n",c[0],c[1]);
+			System.out.printf("%s,%s \n",c[0],c[1]);
 			Ui.drawFile(this.maze,c);
-			if(this.isExit(c)) {
-				System.out.printf("I've found the exit at: %s,%s \n",c[0],c[1]);
-			}
 		}
 	}
 
