@@ -12,10 +12,18 @@ public class Ui {
 	private static InputStreamReader inputStream = new InputStreamReader (System.in);
 	private static BufferedReader buffer = new BufferedReader(inputStream);
 	
-    public static void drawFile(char[][] fileAsArray) {
-        for(int row = 0; row < fileAsArray.length; row++){
-        	for(int col = 0; col < fileAsArray[row].length; col++){
-        		System.out.print(fileAsArray[row][col]);
+    public static void drawFile(char[][] fileAsArray,int[] c) {
+        for(int x = 0; x < fileAsArray.length; x++){
+        	for(int y = 0; y < fileAsArray[x].length; y++){
+                if(c[0] == x && c[1] == y) {
+                    System.out.print("\uD83D\uDE00");
+                } else {
+                    if(fileAsArray[x][y] == ' ') {
+                        System.out.printf(" %s ",fileAsArray[x][y]);
+                    } else {
+                        System.out.printf("|%s|",fileAsArray[x][y]);
+                    }
+                }
             }
         	System.out.print("\n");
         }

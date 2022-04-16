@@ -1,9 +1,13 @@
 package main;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class Explorer {
 	private char[][] maze;
-	private int currPosX = 0;
-	private int currPosY = 0;
+	private int[] currPos = {0,0};
+	private ArrayList<int[]> pathBranching = new ArrayList<>();
 	public boolean[][] history;
 	
 	public Explorer(char[][] maze,int cols,int rows) {
@@ -12,74 +16,102 @@ public class Explorer {
 	}
 
 	public void explore(int x,int y) {
+		try {
+			int[] c = {x,y};
+			this.move(c);
+			//this.labelAsDiscovered();
+			this.discoverAdjacent(c);
+			this.explore(this.currPos[0],this.currPos[1]);
+		} catch (Exception e) {
+			System.out.printf("Execution stopped; \n %s \n", e.getMessage());
+		}
+	}
+	
+	// discovers adjacent counterclockwise
+	public void discoverAdjacent(int[] c) throws Exception {
+		int [][] adjacent = new int [4][2];
+		ArrayList<int[]> paths = new ArrayList<>();
 		
-		this.move(x,y);
-		this.labelAsDiscovered();
-		this.discoverAdjacent(x,y);
-//		this.explore(this.currPosX,this.currPosY);
+		adjacent[0] = this.getPosLeft(c); // left
+		adjacent[1] = this.getPosDown(c); // down
+		adjacent[2] = this.getPosRight(c); // right
+		adjacent[3] = this.getPosUp(c); // up
 
-	}
-	
-	public void discoverAdjacent(int x,int y) {
-		
-		boolean left = this.tryLeft(x,y);
-		System.out.printf(" valid: %s \n", left);
-		boolean down = this.tryDown(x,y);
-		System.out.printf(" valid: %s \n", down);
-		boolean right = this.tryRight(x,y);
-		System.out.printf(" valid: %s \n", right);
-		boolean up = this.tryUp(x,y);
-		System.out.printf(" valid: %s \n", up);
-	}
-	
-	public boolean isValidMove(int x,int y) {
-		return this.areIndexesWithinBounds(x,y) && !this.isDiscovered(x,y);
-	}
+		for(int[] pos : adjacent) {
+			// debug
+			// System.out.printf(" %s,%s -> %s \n", pos[0], pos[1], this.tryMove(pos));
+			if(this.tryMove(pos)) {
+				paths.add(pos);
+			}
+		}
 
-	public boolean isOpen(int x, int y) {
-		return this.maze[x][y] == ' ';
-	}
-	
-	public void move(int x,int y) {
-		if(tryMove(x,y)) {
-			this.currPosX = x;
-			this.currPosY = y;
+		if(paths.size() > 1) {
+			for(int[] pos : paths) {
+				System.out.printf("pathBranching %s,%s \n",pos[0],pos[1]);
+				pathBranching.add(pos);
+			}
+			this.move(pathBranching.get(0));
+			this.labelAsDiscovered(pathBranching.get(0));
+			pathBranching.remove(0);
+		} else if(paths.size() > 0) {
+			this.move(paths.get(0));
+		} else if(pathBranching.size() > 0) {
+			this.move(pathBranching.get(0));
+			this.labelAsDiscovered(pathBranching.get(0));
+			pathBranching.remove(0);
+		} else {
+			throw new Exception("Out of moves");
 		}
 	}
 
-	public boolean tryMove(int x,int y) {
-		if (this.isValidMove(x,y)) {
-			return this.isOpen(x,y);
+	public int[] getPosLeft(int[] c) {
+		return new int[] {c[0],c[1] + 1};
+	}
+
+	public int[] getPosDown(int[] c) {
+		return new int[] {c[0] + 1,c[1]};
+	}
+
+	public int[] getPosRight(int[] c) {
+		return new int[] {c[0],c[1] - 1};
+	}
+
+	public int[] getPosUp(int[] c) {
+		return new int[] {c[0] - 1,c[1]};
+	}
+
+	
+	public boolean isValidMove(int[] c) {
+		return this.areIndexesWithinBounds(c[0],c[1]) && !this.isDiscovered(c[0],c[1]);
+	}
+
+	public boolean isOpen(int[] c) {
+		return this.maze[c[0]][c[1]] == ' ';
+	}
+
+	public boolean isExit(int[] c) {
+		return this.maze[c[0]][c[1]] == 'D';
+	}
+	
+	public void move(int[] c) {
+		if(tryMove(c)) {
+			this.currPos[0] = c[0];
+			this.currPos[1] = c[1];
+
+			System.out.printf("moving to: %s,%s \n",c[0],c[1]);
+			Ui.drawFile(this.maze,c);
+		}
+	}
+
+	public boolean tryMove(int[] c) {
+		if(this.isValidMove(c)) {
+			return this.isOpen(c);
 		}
 		return false;
 	}
-
-	public boolean tryLeft(int x,int y) {
-		int Y = y + 1;
-		System.out.printf("left: %s,%s",x,Y);
-		return this.tryMove(x,Y);
-	}
 	
-	public boolean tryRight(int x,int y) {
-		int Y = y - 1;
-		System.out.printf("right: %s,%s",x,Y);
-		return this.tryMove(x,Y);
-	}
-	
-	public boolean tryDown(int x,int y) {
-		int X = x + 1;
-		System.out.printf("down: %s,%s",X,y);
-		return this.tryMove(X,y);
-	}
-	
-	public boolean tryUp(int x,int y) {
-		int X = x - 1;
-		System.out.printf("up: %s,%s",X,y);
-		return this.tryMove(X,y);
-	}
-	
-	public void labelAsDiscovered() {
-		this.history[this.currPosX][this.currPosY] = true;
+	public void labelAsDiscovered(int[] c) {
+		this.history[c[0]][c[1]] = true;
 	}
 	
 	public boolean areIndexesWithinBounds(int X,int Y) {
@@ -101,24 +133,25 @@ public class Explorer {
 	}
 	
 	public void debugIndexesWithinBoundsMethod() {
-        for(this.currPosX = 0; this.currPosX < this.maze.length; this.currPosX++){
-        	for(this.currPosY = 0; this.currPosY < this.maze[this.currPosX].length; this.currPosY++){
-        		System.out.printf("%s,%s : %s \n",this.currPosX,this.currPosY,this.areIndexesWithinBounds(this.currPosX,this.currPosY));
+        for(this.currPos[0] = 0; this.currPos[0] < this.maze.length; this.currPos[0]++){
+        	for(this.currPos[1] = 0; this.currPos[1] < this.maze[this.currPos[0]].length; this.currPos[1]++){
+        		System.out.printf("%s,%s : %s \n",this.currPos[0],this.currPos[1],this.areIndexesWithinBounds(this.currPos[0],this.currPos[1]));
             }
         }
-        this.currPosX = 0;
-        this.currPosY = 0;
+        this.currPos[0] = 0;
+        this.currPos[1] = 0;
     }
 	
 	public void debugLabeledAsDiscovered() {
-        for(this.currPosX = 0; this.currPosX < this.maze.length; this.currPosX++){
-        	for(this.currPosY = 0; this.currPosY < this.maze[this.currPosX].length; this.currPosY++){
-        		System.out.printf("%s,%s : %s \n",this.currPosX,this.currPosY,this.isDiscovered(this.currPosX,this.currPosY));
-        		this.labelAsDiscovered();
-        		System.out.printf("%s,%s : %s \n",this.currPosX,this.currPosY,this.isDiscovered(this.currPosX,this.currPosY));
+        for(this.currPos[0] = 0; this.currPos[0] < this.maze.length; this.currPos[0]++){
+        	for(this.currPos[1] = 0; this.currPos[1] < this.maze[this.currPos[0]].length; this.currPos[1]++){
+        		System.out.printf("%s,%s : %s \n",this.currPos[0],this.currPos[1],this.isDiscovered(this.currPos[0],this.currPos[1]));
+        		int[] c = {this.currPos[0],this.currPos[1]};
+				this.labelAsDiscovered(c);
+        		System.out.printf("%s,%s : %s \n",this.currPos[0],this.currPos[1],this.isDiscovered(this.currPos[0],this.currPos[1]));
             }
         }
-        this.currPosX = 0;
-        this.currPosY = 0;
+        this.currPos[0] = 0;
+        this.currPos[1] = 0;
     }
 }
