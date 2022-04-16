@@ -23,7 +23,7 @@ public class Explorer {
 				System.out.printf("Encontrei a saída em: %s,%s \n",c[0],c[1]);
 				return true;
 			}
-			this.explore(c);
+			return this.explore(c);
 		} catch (Exception e) {
 			System.out.printf("Execução encerrada; \n %s \n", e.getMessage());
 		}
