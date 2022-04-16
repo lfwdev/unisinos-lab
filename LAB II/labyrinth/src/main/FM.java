@@ -59,4 +59,17 @@ public class FM {
 		}	
 
 	}
+
+	public void writeResult(boolean hasExit) {
+		
+		String success = "Existe um caminho para o labirinto";
+		String fail = "Não existe um caminho para o labirinto";
+		String savePath = this.PATH + "\\" + "saidaLabirinto.txt";
+
+		if(hasExit) {
+
+		} else {
+			
+		}
+	}
 }

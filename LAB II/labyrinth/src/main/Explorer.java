@@ -25,7 +25,7 @@ public class Explorer {
 			}
 			this.explore(c);
 		} catch (Exception e) {
-			System.out.printf("Execution stopped; \n %s \n", e.getMessage());
+			System.out.printf("Execução encerrada; \n %s \n", e.getMessage());
 		}
 		return false;
 	}
@@ -54,7 +54,7 @@ public class Explorer {
 		
 		if(paths.size() > 1) {
 			for(int[] pos : paths) {
-				System.out.printf("pathBranching %s,%s \n",pos[0],pos[1]);
+				System.out.printf("Descobri um novo caminho %s,%s \n",pos[0],pos[1]);
 				pathBranching.add(pos);
 			}
 			this.move(pathBranching.get(0));
@@ -65,7 +65,7 @@ public class Explorer {
 			this.move(pathBranching.get(0));
 			pathBranching.remove(0);
 		} else {
-			throw new Exception("Out of moves");
+			throw new Exception("Todas as áreas exploradas.");
 		}
 	}
 

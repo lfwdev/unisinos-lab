@@ -11,13 +11,14 @@ public class Maze {
 	}
 	
 	public Maze() {
-		String fileNameOnGitpod = "LAB II/labyrinth/model.txt";
-		this.setFileName(fileNameOnGitpod);
-		// this.setFileName(Ui.fileNamePrompt());
+		// String fileNameOnGitpod = "LAB II/labyrinth/model.txt";
+		// this.setFileName(fileNameOnGitpod);
+		this.setFileName(Ui.fileNamePrompt());
 		this.setFileAsArray();
 		this.debugFileAsArray();
 		this.xplorer = new Explorer(this.fileAsArray,this.file.numberOfColumns,this.file.numberOfLines);
-		xplorer.explore(new int[] {0,0});
+		boolean hasExit = this.xplorer.explore(new int[] {0,0});
+		file.writeResult(hasExit);
 	}
 	
 	private void setFileName(String name) {
