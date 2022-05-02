@@ -4,14 +4,14 @@ public class DesafioModulo3 {
 	public static void main(String[] args) {
 		
 		int valor = 0;
-		int[] ordered = {1, 2, 3, 4, 5, 6};
+		int[] ordered = {1, 2, 3, 5, 6, 7};
 		int[] array2 = {1, -2, 8, 5, 4, 9};
 
-		valor = pesquisaBinaria(ordered, 4);
+		valor = pesquisaBinaria(ordered, 4,0,0);
 		outputResult(valor,"pesquisaBinaria para 4");
-		valor = pesquisaBinaria(ordered, 7);
+		valor = pesquisaBinaria(ordered, 7,0,0);
 		outputResult(valor,"pesquisaBinaria para 7");
-		valor = pesquisaBinaria(ordered, 2);
+		valor = pesquisaBinaria(ordered, 2,0,0);
 		outputResult(valor,"pesquisaBinaria para 2");
 
 	}
@@ -24,18 +24,19 @@ public class DesafioModulo3 {
 			System.out.println("Não encontrou o valor.");
 	}
 
-	public static int pesquisaBinaria(int[] array, int valor) {
-		int inf = 0;
-		int sup = array.length - 1;
+	public static int pesquisaBinaria(int[] array, int valor,int inf,int sup) {
+		if(sup == 0)	
+			sup = array.length - 1;
 		
-		while (inf <= sup) {
-			int med = (inf +sup) /2;
+		if(inf <= sup) {
+			int med = (inf + sup) / 2;
 			if (valor == array[med])
 				return med;
 			else if (valor < array[med])
 				sup = med - 1; //irá procurar na primeira metade
 			else
 				inf = med + 1; //irá procurar na segunda metade
+			return pesquisaBinaria(array,valor,inf,sup);
 		}
 		return -1;
 		
