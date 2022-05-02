@@ -1,3 +1,4 @@
+import java.util.Arrays;
 
 public class DesafioModulo3 {
 
@@ -5,15 +6,27 @@ public class DesafioModulo3 {
 		
 		int valor = 0;
 		int[] ordered = {1, 2, 3, 5, 6, 7};
-		int[] array2 = {1, -2, 8, 5, 4, 9};
+		int[] unOrdered = {1, -2, 8, 5, 4, 9};
 
-		valor = pesquisaBinaria(ordered, 4,0,0);
-		outputResult(valor,"pesquisaBinaria para 4");
-		valor = pesquisaBinaria(ordered, 7,0,0);
-		outputResult(valor,"pesquisaBinaria para 7");
-		valor = pesquisaBinaria(ordered, 2,0,0);
-		outputResult(valor,"pesquisaBinaria para 2");
+		// valor = pesquisaBinaria(ordered, 4,0,0);
+		// outputResult(valor,"pesquisaBinaria para 4");
+		// valor = pesquisaBinaria(ordered, 7,0,0);
+		// outputResult(valor,"pesquisaBinaria para 7");
+		// valor = pesquisaBinaria(ordered, 2,0,0);
+		// outputResult(valor,"pesquisaBinaria para 2");
 
+		// valor = pesquisaSequencial(unOrdered, 4,0);
+		// outputResult(valor,"pesquisaSequencial para 4");
+		// valor = pesquisaSequencial(unOrdered, 8,0);
+		// outputResult(valor,"pesquisaSequencial para 8");
+
+		// valor = pesquisaSequencialOrdenada(ordered, 4,0);
+		// outputResult(valor,"pesquisaSequencial para 4");
+		// valor = pesquisaSequencialOrdenada(ordered, 5,0);
+		// outputResult(valor,"pesquisaSequencial para 5");
+
+
+		insertionSort(unOrdered, 0,0);
 	}
 
 	public static void outputResult(int valor,String label) {
@@ -42,62 +55,73 @@ public class DesafioModulo3 {
 		
 	}
 	
-	public static int pesquisaSequencial(int[] array, int valor) {
-		for(int i=0; i < array.length; i++) {
+	public static int pesquisaSequencial(int[] array, int valor, int i) {
+		if(i < array.length) {
 			if(array[i] == valor){
 				return i;
 			}
+			return pesquisaSequencial(array, valor, i + 1);
 		}
 		return -1;
 	}
 	
-	public static int pesquisaSequencialOrdenada(int[] array, int valor) {
-		for(int i=0; (i < array.length) && (array[i] <= valor); i++) {
+	public static int pesquisaSequencialOrdenada(int[] array, int valor, int i) {
+		if((i < array.length) && (array[i] <= valor)) {
 			if(array[i] == valor){
 				return i;
 			}
+			return pesquisaSequencialOrdenada(array, valor, i + 1);
 		}
 		return -1;
 	}
 	
-	public static void selectionSort(int [] a) {
-		int min = 0;
-		for (int i = 0; i < a.length-1; i++) {
-			min = i;
-			for(int j=i+1; j < a.length; j++)
+	public static void selectionSort(int [] a, int i, int j) {
+		if(i < a.length-1) {
+			int min = i;
+			if(j == 0)
+				j = i + 1;
+			if(j < a.length) {
 			    if(a[j] < a[min])
 			    	min = j;
+				j++;
+				selectionSort(a, i + 1, j);
+			}
 			int aux = a[i];
 			a[i] = a[min];
 			a[min] = aux;
-		}
+			selectionSort(a, i + 1, j);
+		} 
 	}
-	
-	public static void insertionSort (int[] a) {
-		for (int i = 1; i < a.length; i++) {
+
+	public static void insertionSort(int[] a,int i,int k) {
+		System.out.println(Arrays.toString(a));
+		if(i == 0) i = 1;
+		if(i < a.length) {
 			int j = i;
 			int b = a[i];
-			while ((j>0 && (a[j-1] > b))) {
+			while((j>0 && (a[j-1] > b))) {
 				a[j] = a[j-1];
 				j--;
 			}
 			a[j] = b;
+			i++;
+			insertionSort(a,i,j);
 		}
 	}
-	
-	public static void bubbleSort(int[] a) {
-		int i = a.length - 1;
-		while(i > 0) {
-			int last = 0;
-			for (int j = 0; j < i; j++) {
+
+	public static void bubbleSort(int[] a,int i,int l,int j) {
+		if (i>0) {
+			if (j < i) {
 				if (a[j] > a[j+1]) {
 					int aux = a[j];
 					a[j] = a[j+1];
 					a[j+1] = aux;
-					last = j;
+					l = j;
 				}
+				bubbleSort(a,i,l,j+1);
 			}
-			i = last;
+			i = l;
+			bubbleSort(a, i,0,0);
 		}
 	}
 
