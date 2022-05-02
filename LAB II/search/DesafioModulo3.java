@@ -92,7 +92,6 @@ public class DesafioModulo3 {
 	}
 
 	public static void insertionSort(int[] a,int i,int j,int b, boolean p) {
-		System.out.println(Arrays.toString(a));
 		if(i == 0) i = 1;
 		if(i < a.length) {
 			if(p) { 
