@@ -3,36 +3,42 @@ public class DesafioModulo3 {
 
 	public static void main(String[] args) {
 		
-		int[] array1 = {1, -2, 8, 4, 9, 5};
-		
+		int valor = 0;
+		int[] ordered = {1, 2, 3, 4, 5, 6};
 		int[] array2 = {1, -2, 8, 5, 4, 9};
-		
-		
-		int valor = pesquisaSequencial(array1,5);
-		
-		System.out.println("Pesquisa Sequencial");
-		if (valor != -1)
-			System.out.println("Encontrou elemento no índice: " +valor);
-		else
-			System.out.println("Não encontrou o valor.");
-		
-		
-		selectionSort(array2);
-		System.out.println("Ordenação por Selection Sort:");
-		System.out.println("Imprimindo o array: ");
-		for(int i=0; i < array2.length; i++) {
-			System.out.print(array2[i] + " | ");
-		}
-		System.out.println();
-		
-		valor = pesquisaSequencialOrdenada(array2,3);
-		System.out.println("Pesquisa Sequencial Ordenada");
-		if (valor != -1)
-			System.out.println("Encontrou elemento no índice: " +valor);
-		else
-			System.out.println("Não encontrou o valor.");
-		
 
+		valor = pesquisaBinaria(ordered, 4);
+		outputResult(valor,"pesquisaBinaria para 4");
+		valor = pesquisaBinaria(ordered, 7);
+		outputResult(valor,"pesquisaBinaria para 7");
+		valor = pesquisaBinaria(ordered, 2);
+		outputResult(valor,"pesquisaBinaria para 2");
+
+	}
+
+	public static void outputResult(int valor,String label) {
+		System.out.println(label);
+		if (valor != -1)
+			System.out.println("Encontrou elemento no índice: " +valor);
+		else
+			System.out.println("Não encontrou o valor.");
+	}
+
+	public static int pesquisaBinaria(int[] array, int valor) {
+		int inf = 0;
+		int sup = array.length - 1;
+		
+		while (inf <= sup) {
+			int med = (inf +sup) /2;
+			if (valor == array[med])
+				return med;
+			else if (valor < array[med])
+				sup = med - 1; //irá procurar na primeira metade
+			else
+				inf = med + 1; //irá procurar na segunda metade
+		}
+		return -1;
+		
 	}
 	
 	public static int pesquisaSequencial(int[] array, int valor) {
@@ -51,23 +57,6 @@ public class DesafioModulo3 {
 			}
 		}
 		return -1;
-	}
-	
-	public static int pesquisaBinaria(int[] array, int valor) {
-		int inf = 0;
-		int sup = array.length - 1;
-		
-		while (inf <= sup) {
-			int med = (inf +sup) /2;
-			if (valor == array[med])
-				return med;
-			else if (valor < array[med])
-				sup = med - 1; //irá procurar na primeira metade
-			else
-				inf = med + 1; //irá procurar na segunda metade
-		}
-		return -1;
-		
 	}
 	
 	public static void selectionSort(int [] a) {
