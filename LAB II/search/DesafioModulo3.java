@@ -1,5 +1,3 @@
-import java.util.Arrays;
-
 public class DesafioModulo3 {
 
 	public static void main(String[] args) {
