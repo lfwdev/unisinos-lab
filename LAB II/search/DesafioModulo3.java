@@ -12,8 +12,6 @@ public class DesafioModulo3 {
 		// outputResult(valor,"pesquisaBinaria para 4");
 		// valor = pesquisaBinaria(ordered, 7,0,0);
 		// outputResult(valor,"pesquisaBinaria para 7");
-		// valor = pesquisaBinaria(ordered, 2,0,0);
-		// outputResult(valor,"pesquisaBinaria para 2");
 
 		// valor = pesquisaSequencial(unOrdered, 4,0);
 		// outputResult(valor,"pesquisaSequencial para 4");
@@ -26,15 +24,15 @@ public class DesafioModulo3 {
 		// outputResult(valor,"pesquisaSequencial para 5");
 
 
-		insertionSort(unOrdered, 0,0);
+		// insertionSort(unOrdered, 0,0,0,true);
 	}
 
 	public static void outputResult(int valor,String label) {
 		System.out.println(label);
 		if (valor != -1)
-			System.out.println("Encontrou elemento no índice: " +valor);
+			System.out.printf("Encontrou elemento no índice: %s \n", valor);
 		else
-			System.out.println("Não encontrou o valor.");
+			System.out.print("Não encontrou o valor. \n");
 	}
 
 	public static int pesquisaBinaria(int[] array, int valor,int inf,int sup) {
@@ -93,24 +91,29 @@ public class DesafioModulo3 {
 		} 
 	}
 
-	public static void insertionSort(int[] a,int i,int k) {
+	public static void insertionSort(int[] a,int i,int j,int b, boolean p) {
 		System.out.println(Arrays.toString(a));
 		if(i == 0) i = 1;
 		if(i < a.length) {
-			int j = i;
-			int b = a[i];
-			while((j>0 && (a[j-1] > b))) {
+			if(p) { 
+				j = i;
+			 	b = a[i]; 
+			}
+			if((j>0 && (a[j-1] > b))) {
+				p = false;
 				a[j] = a[j-1];
 				j--;
+			} else {
+				p = true;
+				a[j] = b; 
+				i++;
 			}
-			a[j] = b;
-			i++;
-			insertionSort(a,i,j);
+			insertionSort(a,i,j,b,p);
 		}
 	}
 
 	public static void bubbleSort(int[] a,int i,int l,int j) {
-		if (i>0) {
+		if (i > 0) {
 			if (j < i) {
 				if (a[j] > a[j+1]) {
 					int aux = a[j];
