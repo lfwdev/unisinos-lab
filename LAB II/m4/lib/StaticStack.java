@@ -1,3 +1,4 @@
+package main;
 public class StaticStack<E> implements Stack<E> {
 	private int top;
 

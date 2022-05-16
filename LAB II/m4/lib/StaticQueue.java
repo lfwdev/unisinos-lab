@@ -1,3 +1,4 @@
+package main;
 public class StaticQueue<E> implements Queue<E> {
 
 	private int first;

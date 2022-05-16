@@ -97,4 +97,21 @@ public class StaticList<E> implements List<E> {
 			s += elements[i] + " ";
 		return s;
 	}
+
+		
+	/** 
+	 * Método publico com assinatura solicitada
+	 * Conforme implementação em ManipulaArray.java
+	 */
+	public int contaElementos(E el) throws IllegalArgumentException {
+		if (el == null) throw new IllegalArgumentException();
+		return contaElementos(el,0);
+	}
+	/** 
+	 * Método privado com recursão
+	 */
+	private int contaElementos(E el,int pos) {
+		System.out.println(el.toString());
+		return 0;
+	}
 }
