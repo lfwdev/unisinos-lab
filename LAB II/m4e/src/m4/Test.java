@@ -11,7 +11,7 @@ public class Test {
         		list.insert(i * 2,i);
         }
 
-		System.out.println(list.contaElementos(10));
+		System.out.println(list.contaElementos(100));
 	}
 
 }
