@@ -2,8 +2,8 @@ package m5;
 // A partir da classe Node e da interface Queue, crie uma classe chamada LinkedQueue, que implementa Queue, ou seja, é uma fila, porém, encadeada. 
 public class LinkedQueue<E> implements Queue<E> {
 	
-	Node<E> head;
-	Node<E> tail;
+	Node<E> front;
+	Node<E> back;
 	private int numElements;
 	
 	public static void main(String[] args) {
