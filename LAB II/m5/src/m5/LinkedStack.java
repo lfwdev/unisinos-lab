@@ -2,8 +2,7 @@ package m5;
 // A partir da classe Node e da interface Stack, crie uma classe chamada LinkedStack, que implementa Stack, ou seja, é uma pilha, porém, encadeada. 
 public class LinkedStack<E> implements Stack<E> {
 
-	Node<E> head;
-	Node<E> tail;
+	Node<E> top;
 	private int numElements;
 	
 	public static void main(String[] args) {
